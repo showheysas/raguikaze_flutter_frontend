@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -62,8 +63,12 @@ class _RaguiKazeHomePageState extends State<RaguiKazeHomePage> {
     );
 
     try {
+      final String baseUrl = kIsWeb
+          ? 'https://raguikazebackend-production.up.railway.app'
+          : 'http://10.0.2.2:8000';
+
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:8000/ask'),
+        Uri.parse('$baseUrl/ask'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'query': query, 'kazemode': _kazemode}),
       );
